@@ -4,10 +4,12 @@ import Home from "../pages/Home";
 import Services from "../pages/Services";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />

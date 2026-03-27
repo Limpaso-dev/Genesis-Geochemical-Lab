@@ -1,24 +1,53 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import logo from "../assets/genesis-logo.jpeg";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const linkStyle = ({ isActive }) =>
+    isActive
+      ? "text-[#C9A24A] border-b-2 border-[#C9A24A] pb-1 transition duration-300"
+      : "hover:text-[#C9A24A] transition duration-300";
+
+  const mobileLinkStyle = ({ isActive }) =>
+    isActive ? "text-[#C9A24A]" : "";
+
   return (
-    <nav className="bg-white shadow-sm px-6 py-4">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-sm px-6 py-4 z-50">
       <div className="flex justify-between items-center">
-        
+
         {/* LOGO */}
-        <h1 className="text-lg md:text-xl font-semibold text-[#1E3A5F]">
-          Genesis Lab
-        </h1>
+        <div className="flex items-center space-x-2">
+          <img 
+            src={logo} 
+            alt="Genesis Lab Logo" 
+            className="h-8 md:h-10 object-contain"
+          />
+          <span className="text-xl md:text-lg font-bold text-[#1E3A5F]">
+            GENESIS GEOCHEMICAL LAB
+          </span>
+        </div>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex space-x-6">
-          <Link to="/" className="hover:text-[#C9A24A]">Home</Link>
-          <Link to="/services" className="hover:text-[#C9A24A]">Services</Link>
-          <Link to="/about" className="hover:text-[#C9A24A]">About</Link>
-          <Link to="/contact" className="hover:text-[#C9A24A]">Contact</Link>
+        <div className="hidden font-bold md:flex space-x-6">
+
+          <NavLink to="/" end className={linkStyle}>
+            HOME
+          </NavLink>
+
+          <NavLink to="/services" className={linkStyle}>
+            SERVICES
+          </NavLink>
+
+          <NavLink to="/about" className={linkStyle}>
+            ABOUT US
+          </NavLink>
+
+          <NavLink to="/contact" className={linkStyle}>
+            CONTACT US
+          </NavLink>
+
         </div>
 
         {/* MOBILE BUTTON */}
@@ -32,11 +61,41 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="mt-4 flex flex-col space-y-3 md:hidden">
-          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/services" onClick={() => setOpen(false)}>Services</Link>
-          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
-          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
+        <div className="mt-4 flex font-bold flex-col space-y-3 md:hidden">
+
+          <NavLink 
+            to="/" 
+            end
+            onClick={() => setOpen(false)} 
+            className={mobileLinkStyle}
+          >
+            HOME
+          </NavLink>
+
+          <NavLink 
+            to="/services" 
+            onClick={() => setOpen(false)} 
+            className={mobileLinkStyle}
+          >
+            SERVICES
+          </NavLink>
+
+          <NavLink 
+            to="/about" 
+            onClick={() => setOpen(false)} 
+            className={mobileLinkStyle}
+          >
+            ABOUT US
+          </NavLink>
+
+          <NavLink 
+            to="/contact" 
+            onClick={() => setOpen(false)} 
+            className={mobileLinkStyle}
+          >
+            CONTACT
+          </NavLink>
+
         </div>
       )}
     </nav>

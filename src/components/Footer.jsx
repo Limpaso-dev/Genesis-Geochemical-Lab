@@ -8,7 +8,7 @@ export default function Footer() {
       </p>
 
       <p className="text-sm mt-1">
-        Phone: 0119993392
+        Phone: +2547 5735 8237
       </p>
     </footer>
   );
