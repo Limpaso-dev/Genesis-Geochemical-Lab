@@ -1,11 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"; // ✅ ADDED
 
 export default function Home() {
   return (
     <div className="w-full">
 
-      {/* HERO  */}
+      {/* HERO */}
       <section className="relative w-full h-[300px] sm:h-[380px] md:h-[480px] lg:h-[520px] overflow-hidden">
 
         <img
@@ -32,14 +33,15 @@ export default function Home() {
             Accurate and reliable geochemical analysis for soil and mineral samples.
           </p>
 
-          <a
-            href="/contact"
+          {/* ✅ FIXED BUTTON */}
+          <Link
+            to="/contact"
             className="mt-6 bg-[#C9A24A] font-semibold text-white px-6 sm:px-8 py-2.5 md:py-3 rounded-lg 
             text-sm sm:text-base hover:bg-[#b8933f] transition duration-300 
             hover:scale-[1.03] active:scale-[0.97]"
           >
             Get in Touch
-          </a>
+          </Link>
         </motion.div>
       </section>
 
@@ -74,7 +76,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* LAB SECTION  */}
+      {/* LAB SECTION */}
       <section className="py-12 md:py-16 bg-gray-50">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16 items-center">
 
@@ -111,7 +113,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/*  WHY CHOOSE US  */}
+      {/* WHY CHOOSE US */}
       <section className="py-12 md:py-16 text-center">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20">
 
