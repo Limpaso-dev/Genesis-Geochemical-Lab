@@ -2,173 +2,179 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <div className="px-6 md:px-12 py-14 md:py-20">
+    <div className="w-full">
 
-      {/* HEADER */}
-      <div className="text-center mb-12">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1E3A5F]">
-          About Genesis Geochemical Laboratory
-        </h1>
+      {/* ================= HEADER ================= */}
+      <section className="py-12 md:py-16 lg:py-20">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 text-center">
 
-        <div className="w-16 md:w-20 h-1 bg-[#C9A24A] mx-auto mt-4"></div>
-      </div>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1E3A5F] leading-tight">
+            About Genesis Geochemical Laboratory
+          </h1>
 
-      {/* INTRO + IMAGE (SIDE BY SIDE ON DESKTOP) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+          <div className="w-16 sm:w-20 h-1 bg-[#C9A24A] mx-auto mt-4 rounded-full"></div>
 
-        {/* TEXT */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-black-700 text-sm md:text-base leading-relaxed"
-        >
-          <p>
-            Genesis Geochemical Laboratory is a professional analytical facility
-            dedicated to providing accurate and reliable geochemical testing services.
-            We specialize in soil and mineral analysis using modern laboratory techniques.
-          </p>
+        </div>
+      </section>
 
-          <p className="mt-4 italic">
-            Our goal is to deliver precise results that support decision-making
-            in mining, environmental studies, and research.
-          </p>
-        </motion.div>
+      {/* ================= INTRO ================= */}
+      <section className="pb-12 md:pb-16">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16 items-center">
 
-        {/* IMAGE */}
-        <motion.img
-          src="/labb-team.jpg"
-          alt="Lab Team"
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="w-full h-64 md:h-80 object-cover rounded-xl shadow-sm"
-        />
-      </div>
-       {/* MANAGEMENT */}
-<div className="mt-16 max-w-5xl mx-auto">
-
-  <h2 className="text-xl md:text-2xl font-bold text-[#1E3A5F] mb-10 text-center">
-    THE MANAGEMENT
-  </h2>
-
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    viewport={{ once: true }}
-    className="bg-white border rounded-xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-8"
-  >
-
-    {/* IMAGE (LEFT) */}
-    <img
-      src="/manager.jpeg"
-      alt="Lab Director"
-      className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-full shadow-md flex-shrink-0"
-    />
-
-    {/* TEXT (RIGHT) */}
-    <div className="text-center md:text-left">
-
-      {/* NAME */}
-      <h3 className="font-semibold text-[#1E3A5F] text-lg md:text-xl">
-        Fostine Maroa Gitiba
-      </h3>
-
-      {/* TITLE */}
-      <p className="text-[#C9A24A] font-bold text-sm mt-1">
-        Laboratory Director
-      </p>
-
-      {/* DESCRIPTION */}
-      <p className="text-gray-600 text-sm md:text-base mt-4 leading-relaxed max-w-xl">
-        Oversees laboratory operations, ensuring high standards in geochemical
-        analysis, quality control, and research excellence. Provides strategic
-        leadership in research, testing methodologies, and laboratory management.
-      </p>
-
-    </div>
-
-  </motion.div>
-
-</div>
-
-
-      {/* MISSION & VISION */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 max-w-5xl mx-auto">
-
-        {[
-          {
-            title: "Our Mission",
-            desc: "To provide high-quality, accurate, and timely geochemical analysis services that meet international standards.",
-          },
-          {
-            title: "Our Vision",
-            desc: "To be a trusted leader in geochemical laboratory services across the region.",
-          },
-        ].map((item, index) => (
+          {/* TEXT */}
           <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition"
+            className="text-black-700 text-sm sm:text-base leading-relaxed text-center md:text-left"
           >
-            <h2 className="font-semibold text-[#1E3A5F] text-lg">
-              {item.title}
-            </h2>
-            <p className="text-gray-600 mt-3 text-sm md:text-base">
-              {item.desc}
+            <p>
+              Genesis Geochemical Laboratory is a professional analytical facility
+              dedicated to providing accurate and reliable geochemical testing services.
+              We specialize in soil and mineral analysis using modern laboratory techniques.
+            </p>
+
+            <p className="mt-4 italic text-black-600">
+              Our goal is to deliver precise results that support decision-making
+              in mining, environmental studies, and research.
             </p>
           </motion.div>
-        ))}
 
-      </div>
-           
-      {/* WHY TRUST US */}
-      <div className="mt-16 text-center">
-        <h2 className="text-xl md:text-2xl font-bold text-[#1E3A5F] mb-8">
-          Why Trust Us
-        </h2>
+          {/* IMAGE */}
+          <motion.img
+            src="/labb-team.jpg"
+            alt="Lab Team"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="w-full h-56 sm:h-64 md:h-80 lg:h-[22rem] object-cover rounded-2xl shadow-md"
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        </div>
+      </section>
+
+      {/* ================= MANAGEMENT ================= */}
+      <section className="py-12 md:py-16">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-5xl mx-auto">
+
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-8 md:mb-10 text-center">
+            THE MANAGEMENT
+          </h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white border rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center gap-6 md:gap-8"
+          >
+
+            <img
+              src="/manager.jpeg"
+              alt="Lab Director"
+              className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-full shadow-md flex-shrink-0"
+            />
+
+            <div className="text-center md:text-left">
+              <h3 className="font-semibold text-[#1E3A5F] text-lg md:text-xl">
+                Fostine Maroa Gitiba
+              </h3>
+
+              <p className="text-[#C9A24A] font-bold text-sm mt-1">
+                Laboratory Director
+              </p>
+
+              <p className="text-gray-600 text-sm sm:text-base mt-3 leading-relaxed max-w-xl">
+                Oversees laboratory operations, ensuring high standards in geochemical
+                analysis, quality control, and research excellence.
+              </p>
+            </div>
+
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= MISSION & VISION ================= */}
+      <section className="py-12 md:py-16">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
           {[
             {
-              title: "Certified Methods",
-              desc: "We use recognized laboratory procedures such as AAS and Aqua Regia.",
+              title: "Our Mission",
+              desc: "To provide high-quality, accurate, and timely geochemical analysis services that meet international standards.",
             },
             {
-              title: "Experienced Team",
-              desc: "Skilled professionals ensuring quality and consistency.",
-            },
-            {
-              title: "Reliable Results",
-              desc: "Accurate data you can depend on for critical decisions.",
+              title: "Our Vision",
+              desc: "To be a trusted leader in geochemical laboratory services across the region.",
             },
           ].map((item, index) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-white border rounded-xl p-6 shadow-sm hover:shadow-md hover:scale-[1.02] transition"
+              className="bg-white border rounded-2xl p-6 shadow-sm hover:shadow-md transition duration-300"
             >
-              <h3 className="font-semibold text-[#1E3A5F]">
+              <h2 className="font-semibold text-[#1E3A5F] text-lg md:text-xl">
                 {item.title}
-              </h3>
-              <p className="text-sm text-gray-600 mt-3">
+              </h2>
+              <p className="text-gray-600 mt-3 text-sm sm:text-base leading-relaxed">
                 {item.desc}
               </p>
             </motion.div>
           ))}
 
         </div>
-      </div>
+      </section>
+
+      {/* ================= WHY TRUST US ================= */}
+      <section className="py-12 md:py-16 text-center">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto">
+
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1E3A5F] mb-8">
+            Why Trust Us
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+
+            {[
+              {
+                title: "Certified Methods",
+                desc: "We use recognized laboratory procedures such as AAS and Aqua Regia.",
+              },
+              {
+                title: "Experienced Team",
+                desc: "Skilled professionals ensuring quality and consistency.",
+              },
+              {
+                title: "Reliable Results",
+                desc: "Accurate data you can depend on for critical decisions.",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white border rounded-2xl p-6 shadow-sm hover:shadow-md hover:scale-[1.03] transition duration-300"
+              >
+                <h3 className="font-semibold text-[#1E3A5F] text-base md:text-lg">
+                  {item.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 mt-3 leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+
+          </div>
+
+        </div>
+      </section>
 
     </div>
   );

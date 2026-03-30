@@ -5,11 +5,23 @@ import Footer from "../components/Footer";
 export default function MainLayout() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F8F6F2]">
+
+      {/* NAVBAR */}
       <Navbar />
-      <main className="flex-grow pt-20">
-        <Outlet />
+
+      {/* MAIN CONTENT */}
+      <main className="flex-grow pt-[70px] sm:pt-[75px] md:pt-[80px]">
+
+        {/* Optional: global content wrapper */}
+        <div className="w-full">
+          <Outlet />
+        </div>
+
       </main>
+
+      {/* FOOTER */}
       <Footer />
+
     </div>
   );
 }
