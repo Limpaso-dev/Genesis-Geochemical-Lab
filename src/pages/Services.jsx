@@ -18,12 +18,12 @@ export default function Services() {
     {
       title: "Mineral Analysis",
       desc: "Detailed mineral testing using advanced laboratory techniques.",
-      image: "/mineral-samples.jpg",
+      image: "/Rocks.jpg",
     },
     {
       title: "Water Analysis",
       desc: "Accurate testing of water samples for safety and composition.",
-      image: "/Water-Analysis.jpg",
+      image: "/Water Analysis.jpg",
     },
   ];
 
