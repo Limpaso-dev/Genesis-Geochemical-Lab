@@ -38,7 +38,7 @@ export default function About() {
 
         {/* IMAGE */}
         <motion.img
-          src="/team.jpg"
+          src="/labb-team.jpg"
           alt="Lab Team"
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -47,6 +47,54 @@ export default function About() {
           className="w-full h-64 md:h-80 object-cover rounded-xl shadow-sm"
         />
       </div>
+       {/* MANAGEMENT */}
+<div className="mt-16 max-w-5xl mx-auto">
+
+  <h2 className="text-xl md:text-2xl font-bold text-[#1E3A5F] mb-10 text-center">
+    THE MANAGEMENT
+  </h2>
+
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+    className="bg-white border rounded-xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-center gap-8"
+  >
+
+    {/* IMAGE (LEFT) */}
+    <img
+      src="/manager.jpeg"
+      alt="Lab Director"
+      className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-full shadow-md flex-shrink-0"
+    />
+
+    {/* TEXT (RIGHT) */}
+    <div className="text-center md:text-left">
+
+      {/* NAME */}
+      <h3 className="font-semibold text-[#1E3A5F] text-lg md:text-xl">
+        Fostine Maroa Gitiba
+      </h3>
+
+      {/* TITLE */}
+      <p className="text-[#C9A24A] font-bold text-sm mt-1">
+        Laboratory Director
+      </p>
+
+      {/* DESCRIPTION */}
+      <p className="text-gray-600 text-sm md:text-base mt-4 leading-relaxed max-w-xl">
+        Oversees laboratory operations, ensuring high standards in geochemical
+        analysis, quality control, and research excellence. Provides strategic
+        leadership in research, testing methodologies, and laboratory management.
+      </p>
+
+    </div>
+
+  </motion.div>
+
+</div>
+
 
       {/* MISSION & VISION */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 max-w-5xl mx-auto">
@@ -79,7 +127,7 @@ export default function About() {
         ))}
 
       </div>
-
+           
       {/* WHY TRUST US */}
       <div className="mt-16 text-center">
         <h2 className="text-xl md:text-2xl font-bold text-[#1E3A5F] mb-8">

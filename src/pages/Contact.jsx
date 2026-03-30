@@ -52,7 +52,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="bg-white border rounded-xl p-6 shadow-sm"
         >
-          <h2 className="text-lg font-semibold text-[#1E3A5F] mb-6">
+          <h2 className="text-lg font-bold text-[#1E3A5F] mb-6">
             Contact Information
           </h2>
 
@@ -69,7 +69,7 @@ export default function Contact() {
 
             <div>
               <p className="font-semibold text-[#1E3A5F]">Phone</p>
-              <p>+2547 5735 8237</p>
+              <p>+2547 9452 8617</p>
             </div>
 
             <div>
