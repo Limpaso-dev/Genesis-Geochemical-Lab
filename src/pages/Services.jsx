@@ -30,7 +30,7 @@ export default function Services() {
   return (
     <div className="w-full">
 
-      {/* ================= HERO ================= */}
+      {/*  HERO */}
       <section className="relative w-full h-[300px] sm:h-[380px] md:h-[460px] lg:h-[520px] overflow-hidden">
 
         <motion.img
@@ -77,7 +77,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= HEADING ================= */}
+      {/* HEADING  */}
       <section className="py-12 md:py-16">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 text-center">
 
@@ -95,7 +95,7 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ================= SERVICES GRID ================= */}
+      {/*  SERVICES GRID  */}
       <section className="pb-16 md:pb-20">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto">
 

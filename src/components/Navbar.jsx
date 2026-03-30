@@ -18,7 +18,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [open]);
 
-  // 🔥 Bold + premium links
+  
   const linkBase =
     "relative text-[#1E3A5F] font-bold tracking-wide hover:text-[#C9A24A] transition duration-300";
 
@@ -101,7 +101,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* 🔥 MOBILE DROPDOWN MENU */}
+      {/* MOBILE DROPDOWN MENU */}
       <AnimatePresence>
         {open && (
           <motion.div

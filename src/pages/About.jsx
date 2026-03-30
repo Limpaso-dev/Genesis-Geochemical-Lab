@@ -4,7 +4,7 @@ export default function About() {
   return (
     <div className="w-full">
 
-      {/* ================= HEADER ================= */}
+      {/*  HEADER  */}
       <section className="py-12 md:py-16 lg:py-20">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 text-center">
 
@@ -17,7 +17,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= INTRO ================= */}
+      {/* INTRO */}
       <section className="pb-12 md:pb-16">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16 items-center">
 
@@ -55,7 +55,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= MANAGEMENT ================= */}
+      {/*  MANAGEMENT  */}
       <section className="py-12 md:py-16">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-5xl mx-auto">
 
@@ -96,7 +96,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= MISSION & VISION ================= */}
+      {/*  MISSION & VISION  */}
       <section className="py-12 md:py-16">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 
@@ -130,7 +130,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= WHY TRUST US ================= */}
+      {/*WHY TRUST US  */}
       <section className="py-12 md:py-16 text-center">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto">
 

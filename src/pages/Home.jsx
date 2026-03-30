@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="w-full">
 
-      {/* ================= HERO ================= */}
+      {/* HERO  */}
       <section className="relative w-full h-[300px] sm:h-[380px] md:h-[480px] lg:h-[520px] overflow-hidden">
 
         <img
@@ -43,7 +43,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ================= SAMPLE RESULTS ================= */}
+      {/* SAMPLE RESULTS */}
       <section className="py-12 md:py-16 bg-white text-center">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20">
 
@@ -74,7 +74,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= LAB SECTION ================= */}
+      {/* LAB SECTION  */}
       <section className="py-12 md:py-16 bg-gray-50">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-16 items-center">
 
@@ -111,7 +111,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= WHY CHOOSE US ================= */}
+      {/*  WHY CHOOSE US  */}
       <section className="py-12 md:py-16 text-center">
         <div className="px-4 sm:px-6 md:px-12 lg:px-20">
 
