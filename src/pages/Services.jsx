@@ -88,8 +88,8 @@ export default function Services() {
           <div className="w-16 sm:w-20 h-1 bg-[#C9A24A] mx-auto mt-4 rounded-full"></div>
 
           <p className="text-black-600 mt-4 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            {/* We provide accurate, reliable, and scientifically proven laboratory
-            analysis services tailored to industry needs. */}
+            We provide accurate, reliable, and scientifically proven laboratory
+            analysis services tailored to industry needs.
           </p>
 
         </div>

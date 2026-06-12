@@ -70,20 +70,20 @@ export default function Contact() {
 
             <div>
               <p className="font-semibold text-[#1E3A5F]">P.O Box</p>
-              <p>110-40413</p>
+              <p>110-40413 KEHANCHA</p>
             </div>
 
             <div>
               <p className="font-semibold text-[#1E3A5F]">Phone</p>
               <p className="hover:text-[#C9A24A] transition">
-                +2547 9452 8617
+                +254119993392
               </p>
             </div>
 
             <div>
               <p className="font-semibold text-[#1E3A5F]">Email</p>
               <p className="hover:text-[#C9A24A] transition break-all">
-                genesisgeochemical@gmail.com
+                genesisgeochemicallab@gmail.com
               </p>
             </div>
 

@@ -50,7 +50,7 @@ export default function Home() {
         <div className="px-4 sm:px-6 md:px-12 lg:px-20">
 
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1E3A5F] mb-8 md:mb-10">
-            Sample Results
+            Our Sample Results
           </h2>
 
           <motion.div
@@ -67,7 +67,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-3 text-xs sm:text-sm md:text-base">
-              <div className="p-3 border-t border-r">MCHINA</div>
+              <div className="p-3 border-t border-r">xxxxx</div>
               <div className="p-3 border-t border-r">3.01</div>
               <div className="p-3 border-t">53.95</div>
             </div>

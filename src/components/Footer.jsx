@@ -81,14 +81,14 @@ export default function Footer() {
 
             <p>Kehancha, Migori Road</p>
 
-            <p>P.O Box 110-40413</p>
+            <p>P.O Box 110-40413 Kehancha</p>
 
             <p className="hover:text-[#C9A24A] transition">
-              +2547 9452 8617
+              +254119993392
             </p>
 
             <p className="hover:text-[#C9A24A] transition break-all">
-              genesisgeochemical@gmail.com
+              genesisgeochemicallab@gmail.com
             </p>
 
           </div>
