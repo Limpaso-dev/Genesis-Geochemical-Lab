@@ -12,7 +12,7 @@ export default function MainLayout() {
       {/* MAIN CONTENT */}
       <main className="flex-grow pt-[70px] sm:pt-[75px] md:pt-[80px]">
 
-        {/*global content wrapper */}
+        {/* Global page wrapper */}
         <div className="w-full">
           <Outlet />
         </div>

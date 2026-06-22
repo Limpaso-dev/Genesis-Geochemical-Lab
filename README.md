@@ -1,16 +1,45 @@
-# React + Vite
+# Genesis Geochemical Laboratory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Genesis laboratory website with MongoDB Atlas-backed assay reports, printable PDF certificates, and QR-code verification.
 
-Currently, two official plugins are available:
+## Report workflow
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. A laboratory administrator opens `/admin/reports` and enters the admin access key.
+2. The administrator creates or edits a report and saves it to MongoDB Atlas.
+3. **Print / Save PDF** creates the A4 customer certificate using the Genesis Word-template design.
+4. The certificate QR code opens `/results/:id`.
+5. The public results page reads that exact report from Atlas.
 
-## React Compiler
+## MongoDB Atlas setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Create an Atlas project and cluster.
+2. Under **Database Access**, create a database user with read/write access to the `genesis_lab` database.
+3. Under **Network Access**, allow the deployment to reach Atlas. Vercel functions do not have one fixed outbound IP on standard plans, so the common setup is `0.0.0.0/0` together with a strong database username/password.
+4. Under **Connect > Drivers**, copy the Node.js connection string.
+5. Copy `.env.example` to `.env` for local development and fill in:
 
-## Expanding the ESLint configuration
+```env
+MONGODB_URI=mongodb+srv://...
+MONGODB_DATABASE=genesis_lab
+ADMIN_API_KEY=a-long-private-secret
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Never commit `.env`.
+
+## Vercel deployment
+
+Add the same three values in **Vercel > Project Settings > Environment Variables**, then redeploy.
+
+The Vite development server does not execute the `/api` serverless functions. For the complete local app, use the Vercel CLI:
+
+```bash
+npx vercel dev
+```
+
+## Commands
+
+```bash
+npm install
+npm run lint
+npm run build
+```

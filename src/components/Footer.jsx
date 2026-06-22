@@ -31,6 +31,24 @@ export default function Footer() {
 
             <li>
               <Link
+                to="/verify"
+                className="block hover:text-[#C9A24A] transition duration-200"
+              >
+                Verify Results
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/admin/reports"
+                className="block hover:text-[#C9A24A] transition duration-200"
+              >
+                Admin Login
+              </Link>
+            </li>
+
+            <li>
+              <Link
                 to="/"
                 className="block hover:text-[#C9A24A] transition duration-200"
               >

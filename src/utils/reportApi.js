@@ -1,0 +1,66 @@
+const ADMIN_KEY_STORAGE = "genesis-lab-admin-key";
+
+async function request(path, options = {}) {
+  const response = await fetch(path, options);
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      "The report API is not running. Restart the development server with npm run dev.",
+    );
+  }
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || "Request failed.");
+  return data;
+}
+
+function authHeaders(adminKey) {
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminKey}`,
+  };
+}
+
+export function getStoredAdminKey() {
+  return sessionStorage.getItem(ADMIN_KEY_STORAGE) || "";
+}
+
+export function storeAdminKey(value) {
+  sessionStorage.setItem(ADMIN_KEY_STORAGE, value);
+}
+
+export function clearAdminKey() {
+  sessionStorage.removeItem(ADMIN_KEY_STORAGE);
+}
+
+export async function listReports(adminKey) {
+  const data = await request("/api/reports", {
+    headers: authHeaders(adminKey),
+  });
+  if (!Array.isArray(data.reports)) {
+    throw new Error("The report API returned an invalid report list.");
+  }
+  return data.reports;
+}
+
+export async function createReport(report, adminKey) {
+  const data = await request("/api/reports", {
+    method: "POST",
+    headers: authHeaders(adminKey),
+    body: JSON.stringify(report),
+  });
+  return data.report;
+}
+
+export async function updateReport(report, adminKey) {
+  const data = await request(`/api/reports/${encodeURIComponent(report.id)}`, {
+    method: "PUT",
+    headers: authHeaders(adminKey),
+    body: JSON.stringify(report),
+  });
+  return data.report;
+}
+
+export async function fetchPublicReport(id) {
+  const data = await request(`/api/reports/${encodeURIComponent(id)}`);
+  return data.report;
+}

@@ -51,6 +51,7 @@ export default function Navbar() {
             { name: "HOME", path: "/" },
             { name: "SERVICES", path: "/services" },
             { name: "ABOUT US", path: "/about" },
+            { name: "VERIFY RESULTS", path: "/verify" },
           ].map((item) => (
             <NavLink key={item.name} to={item.path} end={item.path === "/"}>
               {({ isActive }) => (
@@ -74,6 +75,14 @@ export default function Navbar() {
             hover:scale-[1.05] active:scale-[0.97]"
           >
             Contact Us
+          </NavLink>
+
+          <NavLink
+            to="/admin/reports"
+            className="border border-[#1E3A5F] text-[#1E3A5F] px-4 py-2 rounded-lg font-semibold
+            hover:bg-[#1E3A5F] hover:text-white transition duration-300"
+          >
+            Admin Login
           </NavLink>
 
         </div>
@@ -117,6 +126,7 @@ export default function Navbar() {
                 { name: "HOME", path: "/" },
                 { name: "SERVICES", path: "/services" },
                 { name: "ABOUT", path: "/about" },
+                { name: "VERIFY RESULTS", path: "/verify" },
               ].map((item) => (
                 <NavLink
                   key={item.name}
@@ -137,6 +147,15 @@ export default function Navbar() {
                 hover:bg-[#b8913f] transition duration-300"
               >
                 Contact Us
+              </NavLink>
+
+              <NavLink
+                to="/admin/reports"
+                onClick={() => setOpen(false)}
+                className="border border-[#1E3A5F] text-[#1E3A5F] py-2.5 rounded-lg text-center font-semibold
+                hover:bg-[#1E3A5F] hover:text-white transition duration-300"
+              >
+                Admin Login
               </NavLink>
 
             </div>

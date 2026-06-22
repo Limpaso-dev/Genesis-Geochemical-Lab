@@ -5,6 +5,9 @@ import Services from "../pages/Services";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import ScrollToTop from "../components/ScrollToTop";
+import AdminReports from "../pages/AdminReports";
+import PublicResult from "../pages/PublicResult";
+import VerifyReport from "../pages/VerifyReport";
 
 export default function AppRouter() {
   return (
@@ -16,7 +19,10 @@ export default function AppRouter() {
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/verify" element={<VerifyReport />} />
         </Route>
+        <Route path="/admin/reports" element={<AdminReports />} />
+        <Route path="/results/:id" element={<PublicResult />} />
       </Routes>
     </BrowserRouter>
   );

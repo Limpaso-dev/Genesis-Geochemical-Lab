@@ -1,0 +1,48 @@
+import { reportsCollection } from "../_lib/mongodb.js";
+import {
+  cleanReport,
+  handleApiError,
+  parseBody,
+  publicReport,
+  requireAdmin,
+  sendJson,
+  validateReport,
+} from "../_lib/http.js";
+
+export default async function handler(request, response) {
+  const lookup = decodeURIComponent(request.query.id || "").trim();
+  if (!lookup) return sendJson(response, 400, { error: "Report ID is required." });
+
+  try {
+    const collection = await reportsCollection();
+
+    if (request.method === "GET") {
+      const document = await collection.findOne({
+        $or: [{ id: lookup }, { reportNumber: lookup }],
+      });
+      if (!document) return sendJson(response, 404, { error: "Report not found." });
+      return sendJson(response, 200, { report: publicReport(document) });
+    }
+
+    if (request.method === "PUT") {
+      if (!requireAdmin(request, response)) return;
+      const report = cleanReport({ ...parseBody(request), id: lookup });
+      const validationError = validateReport(report);
+      if (validationError) return sendJson(response, 400, { error: validationError });
+
+      const updatedAt = new Date().toISOString();
+      const result = await collection.findOneAndUpdate(
+        { id: lookup },
+        { $set: { ...report, updatedAt } },
+        { returnDocument: "after" },
+      );
+      if (!result) return sendJson(response, 404, { error: "Report not found." });
+      return sendJson(response, 200, { report: publicReport(result) });
+    }
+
+    response.setHeader("Allow", "GET, PUT");
+    return sendJson(response, 405, { error: "Method not allowed." });
+  } catch (error) {
+    return handleApiError(response, error);
+  }
+}
