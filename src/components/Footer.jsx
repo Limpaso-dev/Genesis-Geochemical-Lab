@@ -115,9 +115,18 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="border-t border-gray-600 mt-10 pt-6 text-center text-xs sm:text-sm text-gray-400 px-2">
-        © {new Date().getFullYear()} Genesis Geochemical Laboratory. All rights reserved.
-      </div>
+     <div className="border-t border-gray-600 mt-10 pt-6 text-center text-xs sm:text-sm text-gray-400 px-2">
+  <p>
+    © {new Date().getFullYear()} Genesis Geochemical Laboratory. All rights reserved.
+  </p>
+
+  <p className="mt-2">
+    Developed and Managed by{" "}
+    <span className="text-[#C9A24A] font-medium">
+      Payiani Technologies
+    </span>
+  </p>
+</div>
 
     </footer>
   );
