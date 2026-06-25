@@ -121,7 +121,7 @@ export default function Footer() {
   </p>
 
   <p className="mt-2">
-    Developed and Managed by{" "}
+    Developed and Maintained by{" "}
     <span className="text-[#C9A24A] font-medium">
       Payiani Technologies
     </span>
