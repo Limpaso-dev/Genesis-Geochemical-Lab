@@ -3,14 +3,28 @@ const ADMIN_KEY_STORAGE = "genesis-lab-admin-key";
 async function request(path, options = {}) {
   const response = await fetch(path, options);
   const contentType = response.headers.get("content-type") || "";
-  if (!contentType.includes("application/json")) {
+  const rawText = await response.text();
+  let data = null;
+
+  if (rawText) {
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      data = null;
+    }
+  }
+
+  if (!response.ok) {
+    throw new Error(data?.error || `Request failed (${response.status}).`);
+  }
+
+  if (!contentType.includes("application/json") && rawText) {
     throw new Error(
       "The report API is not running. Restart the development server with npm run dev.",
     );
   }
-  const data = await response.json();
-  if (!response.ok) throw new Error(data.error || "Request failed.");
-  return data;
+
+  return data || {};
 }
 
 function authHeaders(adminKey) {

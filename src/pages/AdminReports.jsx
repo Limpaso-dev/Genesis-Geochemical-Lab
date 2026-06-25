@@ -192,8 +192,11 @@ export default function AdminReports() {
   }
 
   async function printReport() {
-    const completed = await saveCurrentReport();
-    if (completed) window.setTimeout(() => window.print(), 100);
+    await saveCurrentReport();
+    const canPrint = Boolean(report?.id && report?.reportNumber && report?.results?.length);
+    if (canPrint) {
+      window.setTimeout(() => window.print(), 100);
+    }
   }
 
   function startNew() {
