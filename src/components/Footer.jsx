@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import payianiLogo from "../assets/payiani-logo.png";
 export default function Footer() {
   return (
     <footer className="bg-[#1E3A5F] text-white px-4 sm:px-6 md:px-12 lg:px-20 py-10 md:py-12">
@@ -120,14 +120,25 @@ export default function Footer() {
     © {new Date().getFullYear()} Genesis Geochemical Laboratory. All rights reserved.
   </p>
 
-  <p className="mt-2">
-    Developed and Maintained by{" "}
-    <span className="text-[#C9A24A] font-medium">
-      Payiani Technologies
-    </span>
-  </p>
-</div>
+  <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
+    <span>Developed and Maintained by</span>
 
+    <img
+      src={payianiLogo}
+      alt="Payiani Technologies"
+      className="h-5 w-auto"
+    />
+
+    <a
+      href="https://payiani-technologies.vercel.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#C9A24A] hover:text-white transition duration-300 font-medium"
+    >
+      Payiani Technologies
+    </a>
+  </div>
+</div>
     </footer>
   );
 }
