@@ -24,7 +24,7 @@ export default async function handler(request, response) {
       return sendJson(response, 200, { report: publicReport(document) });
     }
 
-    if (request.method === "PUT") {
+    if (request.method === "POST" || request.method === "PUT") {
       if (!requireAdmin(request, response)) return;
       const report = cleanReport({ ...parseBody(request), id: lookup });
       const validationError = validateReport(report);
@@ -40,7 +40,7 @@ export default async function handler(request, response) {
       return sendJson(response, 200, { report: publicReport(result) });
     }
 
-    response.setHeader("Allow", "GET, PUT");
+    response.setHeader("Allow", "GET, POST, PUT");
     return sendJson(response, 405, { error: "Method not allowed." });
   } catch (error) {
     return handleApiError(response, error);

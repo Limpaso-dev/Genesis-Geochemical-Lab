@@ -1,14 +1,25 @@
 import { forwardRef } from "react";
-import { formatDate } from "../utils/reportStore";
+import { FIXED_ASSAY_METHOD, FIXED_DISCLAIMER, formatDate } from "../utils/reportStore";
+
+function formatStampDate(value) {
+  if (!value) return "";
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${value}T00:00:00`)).toUpperCase();
+}
 
 const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, ref) {
   return (
     <article ref={ref} className="report-document template-report">
       <header className="template-header">
-        <img src="/genesis-report-seal.jpeg" alt="Genesis Geochemical Laboratory seal" />
-        <h1>GENESIS GEOCHEMICAL LABORATORY</h1>
-        <p>LOCATION: KEHANCHA, KEHANCHA-MIGORI ROAD</p>
-        <p>P.O BOX 110-40413, KEHANCHA</p>
+        <img src="/genesis-logo.jpeg" alt="Genesis Geochemical Laboratory logo" />
+        <div>
+          <h1>GENESIS GEOCHEMICAL LABORATORY</h1>
+          <p>LOCATION: KEHANCHA, KEHANCHA-MIGORI ROAD</p>
+          <p className="template-postal-address">P.O BOX 110-40413, KEHANCHA</p>
+        </div>
       </header>
 
       <table className="template-details">
@@ -20,7 +31,7 @@ const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, re
             <th>Type of sample</th><td>{report.sampleType || ""}</td>
             <th>Date Received</th><td>{formatDate(report.dateReceived)}</td>
           </tr>
-          <tr><th>Assay Method</th><td colSpan="3">{report.assayMethod || report.method || ""}</td></tr>
+          <tr><th>Assay Method</th><td colSpan="3">{FIXED_ASSAY_METHOD}</td></tr>
         </tbody>
       </table>
 
@@ -44,36 +55,45 @@ const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, re
           <tr><th></th><th>Sample Type</th><th>Analysis Method</th><th>Tolerance Limit</th></tr>
         </thead>
         <tbody>
-          <tr><th>A</th><td>Soil, Core, Rock</td><td>Aqua regia digest, AAS Finish</td><td></td></tr>
-          <tr><th>B</th><td>Carbon</td><td>Aqua regia digest, AAS Finish</td><td></td></tr>
-          <tr><th>C</th><td>Solution</td><td>AAS Finish</td><td></td></tr>
+          <tr><th>A</th><td>Soil, Core, Rock</td><td>Aqua regia digest, AAS Finish</td><td>+/- 10%</td></tr>
+          <tr><th>B</th><td>Carbon</td><td>Aqua regia digest, AAS Finish</td><td>+/- 10%</td></tr>
+          <tr><th>C</th><td>Solution</td><td>AAS Finish</td><td>+/- 10%</td></tr>
         </tbody>
       </table>
 
-      <p className="template-disclaimer"><strong>Disclaimer:</strong> {report.disclaimer || report.remarks}</p>
+      <p className="template-disclaimer"><strong>Disclaimer:</strong> {FIXED_DISCLAIMER}</p>
+
+      <section className="template-stamp-row" aria-label="Laboratory date stamp">
+        <div className="template-date-stamp">
+          <strong className="stamp-title">GENESIS GEOCHEMICAL LABORATORY</strong>
+          <span className="stamp-star stamp-star-left">★</span>
+          {report.stampDate && (
+            <strong className="stamp-date-overlay">{formatStampDate(report.stampDate)}</strong>
+          )}
+          <span className="stamp-star stamp-star-right">★</span>
+          <span className="stamp-address">R O BOX 110-40413, KEHANCHA</span>
+          <span className="stamp-phone">PHONE: 0119993932</span>
+        </div>
+      </section>
 
       <footer className="template-signoff">
         <div className="signature-block">
           <span>Technical staff</span>
-          {report.technicalStaffSignature
-            ? <img src={report.technicalStaffSignature} alt="Technical staff signature" />
-            : <div className="signature-space" />}
+          <img
+            className="fixed-technical-signature"
+            src="/fred-meja-signature.png"
+            alt="Fred Meja signature"
+          />
           <strong>{report.technicalStaff || ""}</strong>
         </div>
         <div className="signature-block">
           <span>Authorizer</span>
-          {report.authorizerSignature
-            ? <img src={report.authorizerSignature} alt="Authorizer signature" />
-            : <div className="signature-space" />}
+          <img
+            className="fixed-authorizer-signature"
+            src="/vitalis-justus-signature.png"
+            alt="Vitalis Justus signature"
+          />
           <strong>{report.authorizer || report.approvedBy || ""}</strong>
-        </div>
-        <div className="stamp-block">
-          {report.stampImage ? (
-            <>
-              <img src={report.stampImage} alt="Genesis laboratory stamp" />
-              {report.stampDate && <strong>{formatDate(report.stampDate)}</strong>}
-            </>
-          ) : <div className="stamp-placeholder">UPLOAD<br />STAMP</div>}
         </div>
         <div className="template-qr">
           {qrCode ? <img src={qrCode} alt="QR code for online results" /> : <div className="qr-placeholder" />}

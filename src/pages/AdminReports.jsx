@@ -16,31 +16,6 @@ import {
 } from "../utils/reportApi";
 import logo from "../assets/genesis-logo.jpeg";
 
-async function prepareImage(file, maxWidth = 700, maxHeight = 300) {
-  if (!file?.type.startsWith("image/")) throw new Error("Please select a PNG, JPG, or WebP image.");
-  if (file.size > 5_000_000) throw new Error("The image must be smaller than 5 MB.");
-
-  const image = new Image();
-  const source = URL.createObjectURL(file);
-
-  try {
-    await new Promise((resolve, reject) => {
-      image.onload = resolve;
-      image.onerror = () => reject(new Error("The selected image could not be read."));
-      image.src = source;
-    });
-
-    const scale = Math.min(1, maxWidth / image.width, maxHeight / image.height);
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.round(image.width * scale));
-    canvas.height = Math.max(1, Math.round(image.height * scale));
-    canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL("image/webp", 0.82);
-  } finally {
-    URL.revokeObjectURL(source);
-  }
-}
-
 function newReport() {
   return {
     ...emptyReport,
@@ -61,6 +36,19 @@ function normalizeReport(report) {
   };
 }
 
+function pdfTitle(report) {
+  const client = String(report.clientName || "Genesis Lab Report")
+    .trim()
+    .replace(/[<>:"/\\|?*]+/g, "")
+    .replace(/\s+/g, " ");
+  const number = String(report.reportNumber || "")
+    .trim()
+    .replace(/[<>:"/\\|?*]+/g, "")
+    .replace(/\s+/g, " ");
+
+  return number ? `${client} - ${number}` : client;
+}
+
 export default function AdminReports() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -76,7 +64,7 @@ export default function AdminReports() {
   const [error, setError] = useState("");
 
   const publicUrl = useMemo(
-    () => `${window.location.origin}/results/${report.id}`,
+    () => `${window.location.origin}/results/${report.id}/pdf`,
     [report.id],
   );
 
@@ -135,23 +123,6 @@ export default function AdminReports() {
     setSaved(false);
   }
 
-  async function updateImage(field, file, maxWidth, maxHeight) {
-    if (!file) return;
-    setError("");
-    try {
-      const dataUrl = await prepareImage(file, maxWidth, maxHeight);
-      setReport((current) => ({ ...current, [field]: dataUrl }));
-      setSaved(false);
-    } catch (imageError) {
-      setError(imageError.message);
-    }
-  }
-
-  function removeImage(field) {
-    setReport((current) => ({ ...current, [field]: "" }));
-    setSaved(false);
-  }
-
   function addRow() {
     setReport((current) => ({
       ...current,
@@ -192,10 +163,20 @@ export default function AdminReports() {
   }
 
   async function printReport() {
-    await saveCurrentReport();
-    const canPrint = Boolean(report?.id && report?.reportNumber && report?.results?.length);
+    const savedReport = await saveCurrentReport();
+    const printableReport = savedReport || report;
+    const canPrint = Boolean(printableReport?.id && printableReport?.reportNumber && printableReport?.results?.length);
     if (canPrint) {
-      window.setTimeout(() => window.print(), 100);
+      const previousTitle = document.title;
+      document.title = pdfTitle(printableReport);
+
+      const restoreTitle = () => {
+        document.title = previousTitle;
+        window.removeEventListener("afterprint", restoreTitle);
+      };
+
+      window.addEventListener("afterprint", restoreTitle);
+      window.setTimeout(() => window.print(), 150);
     }
   }
 
@@ -357,33 +338,9 @@ export default function AdminReports() {
               </div>
 
               <div className="form-card">
-                <h3>Method and disclaimer</h3>
-                <label>Assay method<textarea name="assayMethod" value={report.assayMethod} onChange={updateField} /></label>
-                <label>Disclaimer<textarea name="disclaimer" value={report.disclaimer} onChange={updateField} /></label>
-              </div>
-
-              <div className="form-card">
                 <h3>Signatures and laboratory stamp</h3>
-                <p className="upload-help">Use cropped PNG, JPG, or WebP images. Transparent PNG files give the cleanest result.</p>
-                <div className="upload-grid">
-                  <ImageUpload
-                    label="Technical staff signature"
-                    value={report.technicalStaffSignature}
-                    onChange={(file) => updateImage("technicalStaffSignature", file, 700, 250)}
-                    onRemove={() => removeImage("technicalStaffSignature")}
-                  />
-                  <ImageUpload
-                    label="Authorizer signature"
-                    value={report.authorizerSignature}
-                    onChange={(file) => updateImage("authorizerSignature", file, 700, 250)}
-                    onRemove={() => removeImage("authorizerSignature")}
-                  />
-                  <ImageUpload
-                    label="Rubber stamp"
-                    value={report.stampImage}
-                    onChange={(file) => updateImage("stampImage", file, 500, 500)}
-                    onRemove={() => removeImage("stampImage")}
-                  />
+                <p className="upload-help">The signatures and stamp are fixed on the certificate. Update only the stamp date each day.</p>
+                <div className="stamp-date-grid">
                   <label>Stamp date
                     <input type="date" name="stampDate" value={report.stampDate} onChange={updateField} />
                   </label>
@@ -398,29 +355,6 @@ export default function AdminReports() {
           </div>
         </section>
       </main>
-    </div>
-  );
-}
-
-function ImageUpload({ label, value, onChange, onRemove }) {
-  return (
-    <div className="image-upload">
-      <span>{label}</span>
-      {value && <img src={value} alt={`${label} preview`} />}
-      <div>
-        <label className="upload-button">
-          {value ? "Replace image" : "Choose image"}
-          <input
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-            onChange={(event) => {
-              onChange(event.target.files?.[0]);
-              event.target.value = "";
-            }}
-          />
-        </label>
-        {value && <button type="button" onClick={onRemove}>Remove</button>}
-      </div>
     </div>
   );
 }

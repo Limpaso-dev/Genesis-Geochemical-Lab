@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import fallbackSliderImage from "../assets/hero.png";
 import { Link } from "react-router-dom"; // ✅ ADDED
 
+const sliderImageModules = import.meta.glob("../assets/home-slider/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+
+const sliderImages = Object.values(sliderImageModules);
+const homeSliderImages = sliderImages.length > 0 ? sliderImages : [fallbackSliderImage];
+
 export default function Home() {
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveImage((current) => (current + 1) % homeSliderImages.length);
+    }, 3500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <div className="w-full">
 
@@ -43,6 +63,56 @@ export default function Home() {
             Get in Touch
           </Link>
         </motion.div>
+      </section>
+
+      {/* SLIDING PICTURES */}
+      <section className="py-12 md:py-16 bg-gray-50">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-20 max-w-6xl mx-auto">
+
+          <div className="text-center mb-8 md:mb-10">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1E3A5F]">
+              Inside Our Laboratory
+            </h2>
+            <div className="w-16 sm:w-20 h-1 bg-[#C9A24A] mx-auto mt-4 rounded-full"></div>
+            <p className="text-gray-600 mt-4 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              A closer look at our laboratory environment, sample handling, and analytical work.
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative h-64 sm:h-80 md:h-[26rem] overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-sm"
+          >
+            {homeSliderImages.map((image, index) => (
+              <img
+                key={image}
+                src={image}
+                alt={`Genesis laboratory slide ${index + 1}`}
+                className={`absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] rounded-xl object-contain transition-opacity duration-1000 ${
+                  activeImage === index ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
+
+            <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 justify-center gap-2 rounded-full border border-gray-200 bg-white/90 px-3 py-2 shadow-sm backdrop-blur">
+              {homeSliderImages.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  aria-label={`Show laboratory image ${index + 1}`}
+                  onClick={() => setActiveImage(index)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    activeImage === index ? "w-9 bg-[#C9A24A]" : "w-2.5 bg-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
       </section>
 
       {/* SAMPLE RESULTS */}

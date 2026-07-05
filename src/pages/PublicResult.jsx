@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { formatDate } from "../utils/reportStore";
+import { FIXED_ASSAY_METHOD, formatDate } from "../utils/reportStore";
 import { fetchPublicReport } from "../utils/reportApi";
 import logo from "../assets/genesis-logo.jpeg";
 
@@ -89,7 +89,7 @@ export default function PublicResult() {
               </tbody>
             </table>
           </div>
-          <p><strong>Assay method:</strong> {report.assayMethod}</p>
+          <p><strong>Assay method:</strong> {FIXED_ASSAY_METHOD}</p>
         </div>
         <footer>This report was issued by Genesis Geochemical Laboratory, Kehancha.</footer>
       </div>

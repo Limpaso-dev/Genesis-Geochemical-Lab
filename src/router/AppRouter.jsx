@@ -8,6 +8,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import AdminReports from "../pages/AdminReports";
 import PublicResult from "../pages/PublicResult";
 import VerifyReport from "../pages/VerifyReport";
+import ReportPdf from "../pages/ReportPdf";
 
 export default function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export default function AppRouter() {
         </Route>
         <Route path="/admin/reports" element={<AdminReports />} />
         <Route path="/results/:id" element={<PublicResult />} />
+        <Route path="/results/:id/pdf" element={<ReportPdf />} />
       </Routes>
     </BrowserRouter>
   );

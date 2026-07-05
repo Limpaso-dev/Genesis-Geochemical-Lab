@@ -1,16 +1,19 @@
+export const FIXED_ASSAY_METHOD = "Aqua regia digest, AAS Finish";
+export const FIXED_DISCLAIMER = "This result portrays ONLY to the sample brought for analysis to the laboratory. It should NOT be compared to any sample, not even from the same source.";
+
 export const emptyReport = {
   reportNumber: "",
   clientName: "",
   sampleType: "Rock",
   dateReceived: "",
-  assayMethod: "Aqua regia digest, AAS Finish",
+  assayMethod: FIXED_ASSAY_METHOD,
   technicalStaff: "",
   technicalStaffSignature: "",
   authorizer: "",
   authorizerSignature: "",
   stampImage: "",
   stampDate: new Date().toISOString().slice(0, 10),
-  disclaimer: "This result portrays ONLY to the sample brought for analysis to the laboratory. It should NOT be compared to any sample, not even from the same source.",
+  disclaimer: FIXED_DISCLAIMER,
   results: [{ sampleId: "", au: "", cu: "", unit: "ppm" }],
 };
 
