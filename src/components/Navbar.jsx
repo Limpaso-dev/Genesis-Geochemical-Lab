@@ -1,168 +1,180 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import logo from "../assets/genesis-logo.jpeg";
+
+const links = [
+  { name: "HOME", path: "/" },
+  { name: "SERVICES", path: "/services" },
+  { name: "ABOUT US", path: "/about" },
+  { name: "VERIFY RESULTS", path: "/verify" },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // 🔥 Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      if (open) setOpen(false);
+
+      if (open) {
+        setOpen(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [open]);
 
-  
-  const linkBase =
-    "relative text-[#1E3A5F] font-bold tracking-wide hover:text-[#C9A24A] transition duration-300";
-
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition duration-300 ${
-        scrolled
-          ? "bg-white shadow-md"
-          : "bg-white/80 backdrop-blur"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-3 md:py-4 flex justify-between items-center">
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm"
+            : "bg-white/90 backdrop-blur-md"
+        }`}
+      >
+        <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between py-3">
 
-        {/* LOGO */}
-        <div className="flex items-center gap-2 sm:gap-3 max-w-[70%]">
-          <img
-            src={logo}
-            alt="Genesis Logo"
-            className="h-8 sm:h-9 md:h-10 object-contain flex-shrink-0"
-          />
-          <span className="text-xs sm:text-sm md:text-lg font-bold text-[#1E3A5F] tracking-wide truncate">
-            GENESIS GEOCHEMICAL LAB
-          </span>
-        </div>
-
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-10">
-
-          {[
-            { name: "HOME", path: "/" },
-            { name: "SERVICES", path: "/services" },
-            { name: "ABOUT US", path: "/about" },
-            { name: "VERIFY RESULTS", path: "/verify" },
-          ].map((item) => (
-            <NavLink key={item.name} to={item.path} end={item.path === "/"}>
-              {({ isActive }) => (
-                <span className={linkBase}>
-                  {item.name}
-                  <span
-                    className={`absolute left-0 -bottom-1 h-[2px] bg-[#C9A24A] transition-all duration-300 ${
-                      isActive ? "w-full" : "w-0"
-                    }`}
-                  />
-                </span>
-              )}
-            </NavLink>
-          ))}
-
-          {/* CTA */}
+          {/* LOGO */}
           <NavLink
-            to="/contact"
-            className="bg-[#C9A24A] text-white px-5 py-2 rounded-lg font-semibold 
-            hover:bg-[#b8913f] transition duration-300 
-            hover:scale-[1.05] active:scale-[0.97]"
+            to="/"
+            className="flex items-center gap-3 flex-shrink-0"
           >
-            Contact Us
+            <img
+              src={logo}
+              alt="Genesis Geochemical Laboratory"
+              className="h-11 w-11 object-contain"
+            />
+
+            <div className="leading-tight">
+              <h1 className="text-lg font-extrabold tracking-[0.12em] text-[#1E3A5F]">
+                GENESIS
+              </h1>
+
+              <p className="uppercase text-[11px] font-extrabold tracking-[0.22em] text-gray-500">
+                Geochemical Laboratory
+              </p>
+            </div>
           </NavLink>
 
-          <NavLink
-            to="/admin/reports"
-            className="border border-[#1E3A5F] text-[#1E3A5F] px-4 py-2 rounded-lg font-semibold
-            hover:bg-[#1E3A5F] hover:text-white transition duration-300"
-          >
-            Admin Login
-          </NavLink>
+          {/* DESKTOP NAVIGATION */}
+          <div className="hidden md:flex items-center gap-14">
 
-        </div>
+            <nav className="flex items-center gap-2">
 
-        {/* HAMBURGER */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden flex flex-col justify-center items-center space-y-1.5"
-        >
-          <span
-            className={`block w-6 h-0.5 bg-[#1E3A5F] transition ${
-              open ? "rotate-45 translate-y-[7px]" : ""
-            }`}
-          />
-          <span
-            className={`block w-6 h-0.5 bg-[#1E3A5F] transition ${
-              open ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-6 h-0.5 bg-[#1E3A5F] transition ${
-              open ? "-rotate-45 -translate-y-[7px]" : ""
-            }`}
-          />
-        </button>
-      </div>
-
-      {/* MOBILE DROPDOWN MENU */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden absolute top-full left-0 w-full bg-white border-t shadow-xl z-40"
-          >
-            <div className="px-6 py-6 flex flex-col space-y-5">
-
-              {[
-                { name: "HOME", path: "/" },
-                { name: "SERVICES", path: "/services" },
-                { name: "ABOUT", path: "/about" },
-                { name: "VERIFY RESULTS", path: "/verify" },
-              ].map((item) => (
+              {links.map((item) => (
                 <NavLink
-                  key={item.name}
+                  key={item.path}
                   to={item.path}
                   end={item.path === "/"}
-                  onClick={() => setOpen(false)}
-                  className="text-[#1E3A5F] font-bold tracking-wide text-base hover:text-[#C9A24A] transition"
+                  className={({ isActive }) =>
+                    `rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-all duration-300 ${
+                      isActive
+                        ? "bg-[#C9A24A]/10 text-[#C9A24A]"
+                        : "text-[#1E3A5F] hover:bg-[#C9A24A]/10 hover:text-[#C9A24A]"
+                    }`
+                  }
                 >
                   {item.name}
                 </NavLink>
               ))}
 
-              {/* CTA */}
+            </nav>
+
+            {/* ACTION BUTTONS */}
+            <div className="flex items-center gap-3">
+
               <NavLink
                 to="/contact"
-                onClick={() => setOpen(false)}
-                className="bg-[#C9A24A] text-white py-2.5 rounded-lg text-center font-semibold 
-                hover:bg-[#b8913f] transition duration-300"
+                className="rounded-full bg-[#C9A24A] px-6 py-2.5 font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#b8913f]"
               >
                 Contact Us
               </NavLink>
 
               <NavLink
                 to="/admin/reports"
-                onClick={() => setOpen(false)}
-                className="border border-[#1E3A5F] text-[#1E3A5F] py-2.5 rounded-lg text-center font-semibold
-                hover:bg-[#1E3A5F] hover:text-white transition duration-300"
+                className="rounded-full border border-[#1E3A5F]/20 px-5 py-2.5 font-medium text-[#1E3A5F] transition-all duration-300 hover:bg-[#1E3A5F] hover:text-white"
               >
                 Admin Login
               </NavLink>
 
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-    </nav>
+          </div>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="rounded-lg p-2 transition hover:bg-gray-100 md:hidden"
+            aria-label="Toggle Menu"
+          >
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
+
+        {/* MOBILE MENU */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+              className="border-t border-gray-200 bg-white shadow-xl md:hidden"
+            >
+              <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] flex-col py-5">
+
+                {links.map((item) => (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    end={item.path === "/"}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `rounded-xl px-4 py-3 font-medium transition-all duration-300 ${
+                        isActive
+                          ? "bg-[#C9A24A]/10 text-[#C9A24A]"
+                          : "text-[#1E3A5F] hover:bg-[#C9A24A]/10 hover:text-[#C9A24A]"
+                      }`
+                    }
+                  >
+                    {item.name}
+                  </NavLink>
+                ))}
+
+                <div className="mt-5 flex flex-col gap-3">
+
+                  <NavLink
+                    to="/contact"
+                    onClick={() => setOpen(false)}
+                    className="rounded-full bg-[#C9A24A] py-3 text-center font-semibold text-white shadow-md transition hover:bg-[#b8913f]"
+                  >
+                    Contact Us
+                  </NavLink>
+
+                  <NavLink
+                    to="/admin/reports"
+                    onClick={() => setOpen(false)}
+                    className="rounded-full border border-[#1E3A5F]/20 py-3 text-center font-semibold text-[#1E3A5F] transition hover:bg-[#1E3A5F] hover:text-white"
+                  >
+                    Admin Login
+                  </NavLink>
+
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* Spacer */}
+      <div className="h-1" />
+    </>
   );
 }

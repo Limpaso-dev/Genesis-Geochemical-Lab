@@ -12,6 +12,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "framer-motion": "^12.38.0",
+    "lucide-react": "^1.23.0",
     "mongodb": "^7.3.0",
     "qrcode": "^1.5.4",
     "react": "^19.2.4",
