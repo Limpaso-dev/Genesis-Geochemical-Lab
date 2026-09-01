@@ -74,6 +74,13 @@ export async function updateReport(report, adminKey) {
   return data.report;
 }
 
+export async function deleteReport(id, adminKey) {
+  await request(`/api/reports/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+    headers: authHeaders(adminKey),
+  });
+}
+
 export async function fetchPublicReport(id) {
   const data = await request(`/api/reports/${encodeURIComponent(id)}`);
   return data.report;

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { Trash2 } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import QRCode from "qrcode";
 import ReportDocument from "../components/ReportDocument";
 import {
   createReportNumber,
@@ -9,6 +9,7 @@ import {
 import {
   clearAdminKey,
   createReport,
+  deleteReport,
   getStoredAdminKey,
   listReports,
   storeAdminKey,
@@ -55,18 +56,12 @@ export default function AdminReports() {
   const editId = searchParams.get("edit");
   const [report, setReport] = useState(newReport);
   const [reports, setReports] = useState([]);
-  const [qrCode, setQrCode] = useState("");
   const [saved, setSaved] = useState(false);
   const [adminKey, setAdminKey] = useState(getStoredAdminKey);
   const [keyInput, setKeyInput] = useState(getStoredAdminKey);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(Boolean(getStoredAdminKey()));
   const [error, setError] = useState("");
-
-  const publicUrl = useMemo(
-    () => `${window.location.origin}/results/${report.id}/pdf`,
-    [report.id],
-  );
 
   useEffect(() => {
     if (!adminKey) return;
@@ -97,15 +92,6 @@ export default function AdminReports() {
 
     return () => { cancelled = true; };
   }, [adminKey, editId]);
-
-  useEffect(() => {
-    QRCode.toDataURL(publicUrl, {
-      width: 180,
-      margin: 1,
-      color: { dark: "#17324d", light: "#ffffff" },
-      errorCorrectionLevel: "M",
-    }).then(setQrCode);
-  }, [publicUrl]);
 
   function updateField(event) {
     const { name, value } = event.target;
@@ -192,6 +178,28 @@ export default function AdminReports() {
     navigate(`/admin/reports?edit=${item.id}`);
   }
 
+  async function deleteSavedReport(item, event) {
+    event.stopPropagation();
+    const label = item.reportNumber || item.clientName || "this report";
+    if (!window.confirm(`Delete ${label}? This cannot be undone.`)) return;
+
+    setLoading(true);
+    setError("");
+    try {
+      await deleteReport(item.id, adminKey);
+      setReports((current) => current.filter((reportItem) => reportItem.id !== item.id));
+      if (item.id === report.id) {
+        setReport(newReport());
+        setSaved(false);
+        navigate("/admin/reports", { replace: true });
+      }
+    } catch (deleteError) {
+      setError(deleteError.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   function handleLogin(event) {
     event.preventDefault();
     const value = keyInput.trim();
@@ -238,7 +246,7 @@ export default function AdminReports() {
       <header className="admin-topbar">
         <Link to="/" className="admin-brand">
           <img src={logo} alt="" />
-          <span>Genesis Lab</span>
+          <span>Genesis Geochemical Laboratory</span>
         </Link>
         <div>
           <Link to="/verify">Customer verification</Link>
@@ -256,14 +264,29 @@ export default function AdminReports() {
           <div className="report-list">
             {reports.length === 0 && <p>No saved reports yet.</p>}
             {reports.map((item) => (
-              <button
+              <div
                 key={item.id}
-                className={item.id === report.id ? "active" : ""}
-                onClick={() => openReport(item)}
+                className={`report-list-item${item.id === report.id ? " active" : ""}`}
               >
-                <strong>{item.clientName || "Unnamed client"}</strong>
-                <span>{item.reportNumber}</span>
-              </button>
+                <button
+                  type="button"
+                  className="report-list-open"
+                  onClick={() => openReport(item)}
+                >
+                  <strong>{item.clientName || "Unnamed client"}</strong>
+                  <span>{item.reportNumber}</span>
+                </button>
+                <button
+                  type="button"
+                  className="delete-report-button"
+                  onClick={(event) => deleteSavedReport(item, event)}
+                  disabled={loading}
+                  title={`Delete ${item.reportNumber || "report"}`}
+                  aria-label={`Delete ${item.reportNumber || "report"}`}
+                >
+                  <Trash2 size={14} aria-hidden="true" />
+                </button>
+              </div>
             ))}
           </div>
         </aside>
@@ -350,7 +373,7 @@ export default function AdminReports() {
 
             <div className="report-preview-wrap">
               <div className="preview-label"><span>LIVE PREVIEW</span><small>A4 certificate</small></div>
-              <ReportDocument report={report} qrCode={qrCode} />
+              <ReportDocument report={report} />
             </div>
           </div>
         </section>

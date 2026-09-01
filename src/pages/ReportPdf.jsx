@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import QRCode from "qrcode";
 import ReportDocument from "../components/ReportDocument";
 import { fetchPublicReport } from "../utils/reportApi";
 import logo from "../assets/genesis-logo.jpeg";
@@ -13,9 +12,6 @@ export default function ReportPdf() {
     report: null,
     error: "",
   });
-  const [qrCode, setQrCode] = useState("");
-
-  const certificateUrl = useMemo(() => `${window.location.origin}/results/${id}/pdf`, [id]);
 
   useEffect(() => {
     let cancelled = false;
@@ -30,15 +26,6 @@ export default function ReportPdf() {
 
     return () => { cancelled = true; };
   }, [id]);
-
-  useEffect(() => {
-    QRCode.toDataURL(certificateUrl, {
-      width: 180,
-      margin: 1,
-      color: { dark: "#17324d", light: "#ffffff" },
-      errorCorrectionLevel: "M",
-    }).then(setQrCode);
-  }, [certificateUrl]);
 
   const loading = state.id !== id || state.status === "loading";
   const report = state.id === id ? state.report : null;
@@ -76,7 +63,7 @@ export default function ReportPdf() {
         <button type="button" onClick={() => window.print()}>Print / Save PDF</button>
       </div>
       <div className="pdf-page-wrap">
-        <ReportDocument report={report} qrCode={qrCode} />
+        <ReportDocument report={report} />
       </div>
     </main>
   );

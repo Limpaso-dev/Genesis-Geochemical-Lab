@@ -10,7 +10,7 @@ function formatStampDate(value) {
   }).format(new Date(`${value}T00:00:00`)).toUpperCase();
 }
 
-const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, ref) {
+const ReportDocument = forwardRef(function ReportDocument({ report }, ref) {
   return (
     <article ref={ref} className="report-document template-report">
       <header className="template-header">
@@ -63,19 +63,7 @@ const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, re
 
       <p className="template-disclaimer"><strong>Disclaimer:</strong> {FIXED_DISCLAIMER}</p>
 
-      <section className="template-stamp-row" aria-label="Laboratory date stamp">
-        <div className="template-date-stamp">
-          <strong className="stamp-title">GENESIS GEOCHEMICAL LABORATORY</strong>
-          <span className="stamp-star stamp-star-left">★</span>
-          {report.stampDate && (
-            <strong className="stamp-date-overlay">{formatStampDate(report.stampDate)}</strong>
-          )}
-          <span className="stamp-star stamp-star-right">★</span>
-          <span className="stamp-address">R O BOX 110-40413, KEHANCHA</span>
-          <span className="stamp-phone">PHONE: 0119993932</span>
-        </div>
-      </section>
-
+      <section className="template-approval-row">
       <footer className="template-signoff">
         <div className="signature-block">
           <span>Technical staff</span>
@@ -95,12 +83,22 @@ const ReportDocument = forwardRef(function ReportDocument({ report, qrCode }, re
           />
           <strong>{report.authorizer || report.approvedBy || ""}</strong>
         </div>
-        <div className="template-qr">
-          {qrCode ? <img src={qrCode} alt="QR code for online results" /> : <div className="qr-placeholder" />}
-          <strong>SCAN TO VIEW RESULTS</strong>
-          <span>{report.reportNumber}</span>
-        </div>
       </footer>
+
+      <section className="template-stamp-row" aria-label="Laboratory date stamp">
+        <div className="template-date-stamp">
+          <strong className="stamp-title">GENESIS GEOCHEMICAL LABORATORY</strong>
+          <span className="stamp-star stamp-star-left">★</span>
+          {report.stampDate && (
+            <strong className="stamp-date-overlay">{formatStampDate(report.stampDate)}</strong>
+          )}
+          <span className="stamp-star stamp-star-right">★</span>
+          <span className="stamp-address">R O BOX 110-40413, KEHANCHA</span>
+          <span className="stamp-phone">PHONE: 0119993932</span>
+        </div>
+      </section>
+      </section>
+
     </article>
   );
 });

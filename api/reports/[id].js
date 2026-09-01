@@ -40,7 +40,14 @@ export default async function handler(request, response) {
       return sendJson(response, 200, { report: publicReport(result) });
     }
 
-    response.setHeader("Allow", "GET, POST, PUT");
+    if (request.method === "DELETE") {
+      if (!requireAdmin(request, response)) return;
+      const result = await collection.deleteOne({ id: lookup });
+      if (!result.deletedCount) return sendJson(response, 404, { error: "Report not found." });
+      return sendJson(response, 200, { deleted: true });
+    }
+
+    response.setHeader("Allow", "GET, POST, PUT, DELETE");
     return sendJson(response, 405, { error: "Method not allowed." });
   } catch (error) {
     return handleApiError(response, error);
