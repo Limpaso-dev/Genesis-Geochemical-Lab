@@ -1,5 +1,6 @@
 import { reportsCollection } from "../_lib/mongodb.js";
 import {
+  applyCors,
   cleanReport,
   handleApiError,
   parseBody,
@@ -10,6 +11,11 @@ import {
 } from "../_lib/http.js";
 
 export default async function handler(request, response) {
+  if (request.method === "OPTIONS") {
+    applyCors(response);
+    return response.status(204).end();
+  }
+
   const lookup = decodeURIComponent(request.query.id || "").trim();
   if (!lookup) return sendJson(response, 400, { error: "Report ID is required." });
 

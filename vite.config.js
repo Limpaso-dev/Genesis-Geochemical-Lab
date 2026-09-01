@@ -18,6 +18,15 @@ function localReportApi() {
         const url = new URL(request.url, "http://localhost");
         if (!url.pathname.startsWith("/api/reports")) return next();
 
+        if (request.method === "OPTIONS") {
+          response.setHeader("Access-Control-Allow-Origin", "*");
+          response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+          response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+          response.statusCode = 204;
+          response.end();
+          return;
+        }
+
         try {
           response.status = (statusCode) => {
             response.statusCode = statusCode;

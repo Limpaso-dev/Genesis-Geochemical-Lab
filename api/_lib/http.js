@@ -1,6 +1,15 @@
 import { timingSafeEqual } from "node:crypto";
 
+export function applyCors(response) {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  response.setHeader("Vary", "Origin");
+  return response;
+}
+
 export function sendJson(response, status, body) {
+  applyCors(response);
   response.status(status).setHeader("Content-Type", "application/json");
   response.setHeader("Cache-Control", "no-store");
   response.end(JSON.stringify(body));
