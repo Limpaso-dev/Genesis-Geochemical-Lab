@@ -249,7 +249,7 @@ export default function AdminReports() {
           <span>Genesis Geochemical Laboratory</span>
         </Link>
         <div>
-          <Link to="/verify">Customer verification</Link>
+          {/* <Link to="/verify">Customer verification</Link> */}
           <Link to="/">View website</Link>
           <button className="logout-button" onClick={handleLogout}>Log out</button>
         </div>

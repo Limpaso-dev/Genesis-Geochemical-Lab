@@ -67,7 +67,7 @@ export async function createReport(report, adminKey) {
 
 export async function updateReport(report, adminKey) {
   const data = await request(`/api/reports/${encodeURIComponent(report.id)}`, {
-    method: "POST",
+    method: "PUT",
     headers: authHeaders(adminKey),
     body: JSON.stringify(report),
   });
@@ -76,8 +76,9 @@ export async function updateReport(report, adminKey) {
 
 export async function deleteReport(id, adminKey) {
   await request(`/api/reports/${encodeURIComponent(id)}`, {
-    method: "DELETE",
+    method: "POST",
     headers: authHeaders(adminKey),
+    body: JSON.stringify({ _action: "delete" }),
   });
 }
 

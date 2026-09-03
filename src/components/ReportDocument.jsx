@@ -55,9 +55,9 @@ const ReportDocument = forwardRef(function ReportDocument({ report }, ref) {
           <tr><th></th><th>Sample Type</th><th>Analysis Method</th><th>Tolerance Limit</th></tr>
         </thead>
         <tbody>
-          <tr><th>A</th><td>Soil, Core, Rock</td><td>Aqua regia digest, AAS Finish</td><td>+/- 10%</td></tr>
-          <tr><th>B</th><td>Carbon</td><td>Aqua regia digest, AAS Finish</td><td>+/- 10%</td></tr>
-          <tr><th>C</th><td>Solution</td><td>AAS Finish</td><td>+/- 10%</td></tr>
+          <tr><th>A</th><td>Soil, Core, Rock</td><td>Aqua regia digest, AAS Finish</td><td><span className="tolerance-limit"><span className="stacked-plus-minus" aria-label="plus or minus"><span>+</span><span>-</span></span><span>0.5ppm</span></span></td></tr>
+          <tr><th>B</th><td>Carbon</td><td>Aqua regia digest, AAS Finish</td><td><span className="tolerance-limit"><span className="stacked-plus-minus" aria-label="plus or minus"><span>+</span><span>-</span></span><span>25ppm</span></span></td></tr>
+          <tr><th>C</th><td>Solution</td><td>AAS Finish</td><td><span className="tolerance-limit"><span className="stacked-plus-minus" aria-label="plus or minus"><span>+</span><span>-</span></span><span>0.1ppm</span></span></td></tr>
         </tbody>
       </table>
 

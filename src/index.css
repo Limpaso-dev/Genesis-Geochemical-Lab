@@ -149,6 +149,8 @@ button, input, textarea, select { font: inherit; }
 .method-table th:nth-child(2) { width: 27%; }
 .method-table th:nth-child(3) { width: 37%; }
 .method-table th:nth-child(4) { width: 24%; }
+.tolerance-limit { display: inline-flex; align-items: center; gap: 4px; }
+.stacked-plus-minus { display: inline-grid; justify-items: center; font-weight: 700; line-height: .72; }
 .template-disclaimer { margin: 0 0 8px; font-size: 11px; line-height: 1.35; font-weight: 700; }
 .template-approval-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; margin-top: 5px; }
 .template-stamp-row { display: flex; justify-content: flex-end; margin: 0; }

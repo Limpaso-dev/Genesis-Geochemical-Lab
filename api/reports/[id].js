@@ -32,7 +32,15 @@ export default async function handler(request, response) {
 
     if (request.method === "POST" || request.method === "PUT") {
       if (!requireAdmin(request, response)) return;
-      const report = cleanReport({ ...parseBody(request), id: lookup });
+      const body = parseBody(request);
+
+      if (request.method === "POST" && body?._action === "delete") {
+        const result = await collection.deleteOne({ id: lookup });
+        if (!result.deletedCount) return sendJson(response, 404, { error: "Report not found." });
+        return sendJson(response, 200, { deleted: true });
+      }
+
+      const report = cleanReport({ ...body, id: lookup });
       const validationError = validateReport(report);
       if (validationError) return sendJson(response, 400, { error: validationError });
 
