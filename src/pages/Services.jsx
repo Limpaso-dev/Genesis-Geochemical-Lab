@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 
 export default function Services() {
@@ -28,7 +29,17 @@ export default function Services() {
   ];
 
   return (
-    <div className="w-full">
+    <>
+      <Helmet>
+        <title>Laboratory Services | Genesis Geochemical Laboratory</title>
+        <meta
+          name="description"
+          content="Explore Genesis Geochemical Laboratory services including soil analysis, mineral analysis, water testing, and assay methods for reliable geochemical results."
+        />
+        <link rel="canonical" href="https://www.genesislab.co.ke/services" />
+      </Helmet>
+
+      <div className="w-full">
 
       {/*  HERO */}
       <section className="relative w-full h-[300px] sm:h-[380px] md:h-[460px] lg:h-[520px] overflow-hidden">
@@ -140,6 +151,7 @@ export default function Services() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </>
   );
 }

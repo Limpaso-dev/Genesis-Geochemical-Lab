@@ -1,8 +1,19 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 export default function About() {
   return (
-    <div className="w-full">
+    <>
+      <Helmet>
+        <title>About Us | Genesis Geochemical Laboratory</title>
+        <meta
+          name="description"
+          content="Learn about Genesis Geochemical Laboratory, our mission, laboratory standards, and the experienced team delivering accurate geochemical analysis in Kenya."
+        />
+        <link rel="canonical" href="https://www.genesislab.co.ke/about" />
+      </Helmet>
+
+      <div className="w-full">
 
       {/*  HEADER  */}
       <section className="py-12 md:py-16 lg:py-20">
@@ -176,6 +187,7 @@ export default function About() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </>
   );
 }

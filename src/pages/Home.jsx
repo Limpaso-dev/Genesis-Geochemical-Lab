@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import fallbackSliderImage from "../assets/hero.png";
-import { Link } from "react-router-dom"; // ✅ ADDED
 
 const sliderImageModules = import.meta.glob("../assets/home-slider/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -24,7 +24,21 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full">
+    <>
+      <Helmet>
+        <title>Genesis Geochemical Laboratory | Soil, Water & Mineral Testing in Kenya</title>
+        <meta
+          name="description"
+          content="Genesis Geochemical Laboratory provides accurate soil, mineral, and water analysis services in Kenya using modern geochemical testing methods."
+        />
+        <meta
+          name="keywords"
+          content="geochemical laboratory Kenya, soil testing Kenya, mineral analysis lab, water testing Kenya, Genesis Geochemical Laboratory"
+        />
+        <link rel="canonical" href="https://www.genesislab.co.ke/" />
+      </Helmet>
+
+      <div className="w-full">
 
       {/* HERO */}
       <section className="relative w-full h-[300px] sm:h-[380px] md:h-[480px] lg:h-[520px] overflow-hidden">
@@ -229,6 +243,7 @@ export default function Home() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </>
   );
 }

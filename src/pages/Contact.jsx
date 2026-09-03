@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { Helmet } from "react-helmet-async";
 import { useRef, useState } from "react";
 
 export default function Contact() {
@@ -31,7 +32,17 @@ export default function Contact() {
   };
 
   return (
-    <div className="px-4 sm:px-6 md:px-12 lg:px-20 py-12 md:py-16 lg:py-20">
+    <>
+      <Helmet>
+        <title>Contact Genesis Geochemical Laboratory</title>
+        <meta
+          name="description"
+          content="Contact Genesis Geochemical Laboratory for geochemical testing, sample submission, and laboratory inquiries in Kenya."
+        />
+        <link rel="canonical" href="https://www.genesislab.co.ke/contact" />
+      </Helmet>
+
+      <div className="px-4 sm:px-6 md:px-12 lg:px-20 py-12 md:py-16 lg:py-20">
 
       {/* HEADER */}
       <div className="text-center mb-10 md:mb-14">
@@ -163,6 +174,7 @@ export default function Contact() {
 
       </div>
 
-    </div>
+      </div>
+    </>
   );
 }
