@@ -76,9 +76,8 @@ export async function updateReport(report, adminKey) {
 
 export async function deleteReport(id, adminKey) {
   await request(`/api/reports/${encodeURIComponent(id)}`, {
-    method: "POST",
+    method: "DELETE",
     headers: authHeaders(adminKey),
-    body: JSON.stringify({ _action: "delete" }),
   });
 }
 
