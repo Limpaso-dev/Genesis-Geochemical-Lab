@@ -69,7 +69,7 @@ export default function PublicResult() {
         </header>
         <div className="verified-banner">
           <span>✓</span>
-          <div><strong>Verified laboratory report</strong><small>Live database record for {report.reportNumber}.</small></div>
+          <div><strong>This report is verified</strong><small>Live database record for {report.reportNumber}.</small></div>
         </div>
         <section className="public-report-meta">
           <div><span>Client</span><strong>{report.clientName || "—"}</strong></div>

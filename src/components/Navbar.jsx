@@ -38,7 +38,7 @@ export default function Navbar() {
             : "bg-white/90 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between py-3">
+        <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] items-center justify-between gap-2 py-3">
 
           {/* LOGO */}
           <NavLink
@@ -56,14 +56,14 @@ export default function Navbar() {
                 GENESIS
               </h1>
 
-              <p className="uppercase text-[11px] font-extrabold tracking-[0.22em] text-gray-500">
+              <p className="uppercase text-[9px] font-extrabold tracking-[0.1em] text-gray-500 sm:text-[11px] sm:tracking-[0.22em]">
                 Geochemical Laboratory
               </p>
             </div>
           </NavLink>
 
           {/* DESKTOP NAVIGATION */}
-          <div className="hidden md:flex items-center gap-14">
+          <div className="hidden lg:flex items-center gap-8">
 
             <nav className="flex items-center gap-2">
 
@@ -110,7 +110,7 @@ export default function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setOpen(!open)}
-            className="rounded-lg p-2 transition hover:bg-gray-100 md:hidden"
+            className="rounded-lg p-2 transition hover:bg-gray-100 lg:hidden"
             aria-label="Toggle Menu"
           >
             {open ? <X size={26} /> : <Menu size={26} />}
@@ -125,7 +125,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25 }}
-              className="border-t border-gray-200 bg-white shadow-xl md:hidden"
+              className="border-t border-gray-200 bg-white shadow-xl lg:hidden"
             >
               <div className="mx-auto flex w-[min(1200px,calc(100%-2rem))] flex-col py-5">
 

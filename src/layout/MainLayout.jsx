@@ -10,7 +10,7 @@ export default function MainLayout() {
       <Navbar />
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow pt-[70px] sm:pt-[75px] md:pt-[80px]">
+      <main className="flex-grow overflow-x-clip pt-[70px] sm:pt-[75px] md:pt-[80px]">
 
         {/* Global page wrapper */}
         <div className="w-full">
