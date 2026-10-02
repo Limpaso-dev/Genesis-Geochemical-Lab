@@ -39,6 +39,23 @@ export default async function handler(request, response) {
         return sendJson(response, 200, { deleted: true });
       }
 
+      if (body?._action === "update") {
+        const id = String(body.id || "").trim();
+        if (!id) return sendJson(response, 400, { error: "Report ID is required." });
+
+        const report = cleanReport({ ...body, id });
+        const validationError = validateReport(report);
+        if (validationError) return sendJson(response, 400, { error: validationError });
+
+        const result = await collection.findOneAndUpdate(
+          { id },
+          { $set: { ...report, updatedAt: new Date().toISOString() } },
+          { returnDocument: "after" },
+        );
+        if (!result) return sendJson(response, 404, { error: "Report not found." });
+        return sendJson(response, 200, { report: publicReport(result) });
+      }
+
       const report = cleanReport(body);
       const validationError = validateReport(report);
       if (validationError) return sendJson(response, 400, { error: validationError });

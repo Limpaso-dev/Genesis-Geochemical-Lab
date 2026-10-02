@@ -66,10 +66,10 @@ export async function createReport(report, adminKey) {
 }
 
 export async function updateReport(report, adminKey) {
-  const data = await request(`/api/reports/${encodeURIComponent(report.id)}`, {
-    method: "PUT",
+  const data = await request("/api/reports", {
+    method: "POST",
     headers: authHeaders(adminKey),
-    body: JSON.stringify(report),
+    body: JSON.stringify({ ...report, _action: "update" }),
   });
   return data.report;
 }
