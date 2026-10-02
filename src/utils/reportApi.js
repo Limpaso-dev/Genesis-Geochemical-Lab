@@ -85,6 +85,6 @@ export async function deleteReport(id, adminKey) {
 }
 
 export async function fetchPublicReport(id) {
-  const data = await request(`/api/reports/${encodeURIComponent(id)}`);
+  const data = await request(`/api/reports?lookup=${encodeURIComponent(id)}`);
   return data.report;
 }

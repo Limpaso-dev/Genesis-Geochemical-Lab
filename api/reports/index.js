@@ -16,6 +16,22 @@ export default async function handler(request, response) {
     return response.status(204).end();
   }
 
+  if (request.method === "GET" && request.query.lookup) {
+    const lookup = String(request.query.lookup).trim();
+    if (!lookup) return sendJson(response, 400, { error: "Report ID or job number is required." });
+
+    try {
+      const collection = await reportsCollection();
+      const document = await collection.findOne({
+        $or: [{ id: lookup }, { reportNumber: lookup }],
+      });
+      if (!document) return sendJson(response, 404, { error: "Report not found." });
+      return sendJson(response, 200, { report: publicReport(document) });
+    } catch (error) {
+      return handleApiError(response, error);
+    }
+  }
+
   if (!requireAdmin(request, response)) return;
 
   try {
