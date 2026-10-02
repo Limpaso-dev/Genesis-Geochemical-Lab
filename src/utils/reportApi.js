@@ -75,13 +75,12 @@ export async function updateReport(report, adminKey) {
 }
 
 export async function deleteReport(id, adminKey) {
-  await request(`/api/reports/${encodeURIComponent(id)}`, {
-    // Some production hosting/proxy layers reject DELETE requests to serverless
-    // functions with 405 before they reach the function. Use the supported
-    // action endpoint over POST for consistent behavior across deployments.
+  await request("/api/reports", {
+    // Use the collection endpoint so deletion does not depend on dynamic-route
+    // method handling by the production host.
     method: "POST",
     headers: authHeaders(adminKey),
-    body: JSON.stringify({ _action: "delete" }),
+    body: JSON.stringify({ _action: "delete", id }),
   });
 }
 

@@ -30,7 +30,16 @@ export default async function handler(request, response) {
     }
 
     if (request.method === "POST") {
-      const report = cleanReport(parseBody(request));
+      const body = parseBody(request);
+      if (body?._action === "delete") {
+        const id = String(body.id || "").trim();
+        if (!id) return sendJson(response, 400, { error: "Report ID is required." });
+        const result = await collection.deleteOne({ id });
+        if (!result.deletedCount) return sendJson(response, 404, { error: "Report not found." });
+        return sendJson(response, 200, { deleted: true });
+      }
+
+      const report = cleanReport(body);
       const validationError = validateReport(report);
       if (validationError) return sendJson(response, 400, { error: validationError });
 
